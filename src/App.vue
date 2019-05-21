@@ -57,6 +57,10 @@ export default {
       this.gameActive = false;
       this.stopTimer();
       this.stopMoles();
+      this.updateHighScore();
+    },
+    updateHighScore: function() {
+      this.highScore = Math.max(this.highScore, this.score);
     },
     startTimer: function() {
       this.timerId = setInterval(() => {
