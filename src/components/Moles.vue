@@ -1,9 +1,11 @@
 <template>
-  <div class="moles-container gameActive">
-    <Mole></Mole>
-    <Mole></Mole>
-    <Mole></Mole>
-    <Mole></Mole>
+  <div v-bind:class="classNames">
+    <Mole
+      v-for="(moleState, idx) in moleData"
+      v-bind:key="idx"
+      v-bind:active="moleState"
+    >
+    </Mole>
   </div>
 </template>
 
@@ -14,7 +16,16 @@ export default {
   name: 'Moles',
   components: {
     Mole,
-  }
+  },
+  props: ['moleData', 'gameActive'],
+  computed: {
+    classNames: function() {
+      return {
+        'moles-container': true, // 必ず表示する
+        'game-active': this.gameActive, // ゲームが遊ばれている時だけ
+      };
+    }
+  },
 };
 </script>
 

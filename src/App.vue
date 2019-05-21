@@ -11,7 +11,10 @@
       <Counter label="High Score:" v-bind:value="highScore" />
       <Counter label="Timer" v-bind:value="timer" />
     </div>
-    <Moles></Moles>
+    <Moles 
+      v-bind:moleData="moles"
+      v-bind:gameActive="gameActive"
+    />
   </div>
 </template>
 
@@ -30,7 +33,7 @@ export default {
       score: 0,
       highScore: 0,
       timer: 20,
-      moles: [false, false, false, false],
+      moles: [true, false, false, true],
       gameActive: false,
     };
   },
