@@ -7,9 +7,9 @@
       Start Game
     </button>
     <div class="counters-container">
-      <Counter></Counter>
-      <Counter></Counter>
-      <Counter></Counter>
+      <Counter label="Score:" v-bind:value="score" />
+      <Counter label="High Score:" v-bind:value="highScore" />
+      <Counter label="Timer" v-bind:value="timer" />
     </div>
     <Moles></Moles>
   </div>
