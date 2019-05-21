@@ -17,6 +17,7 @@
     <Moles
       v-bind:moleData="moles"
       v-bind:gameActive="gameActive"
+      v-on:whack="handleMoleWhack"
     />
   </div>
 </template>
@@ -68,6 +69,9 @@ export default {
     },
     stopTimer: function() {
       clearInterval(this.timerId);
+    },
+    handleMoleWhack: function(moleId) {
+      console.log('moleId =', moleId);
     },
   },
 };
