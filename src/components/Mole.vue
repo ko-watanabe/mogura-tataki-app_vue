@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:class="classNames">
+  <div v-bind:class="classNames" v-on:click="handleContainerClick">
     <div class="mole-image-container">
       <img
         class="mole"
@@ -19,6 +19,12 @@ export default {
   methods: {
     handleClick: function() {
       this.$emit('whack', this.moleId);
+    },
+    handleContainerClick: function(evt) {
+      if (evt.target.className === 'mole') {
+        return;
+      }
+      this.$emit('miss');
     },
   },
   computed: {

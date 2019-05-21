@@ -12,12 +12,14 @@
     <div class="counters-container">
       <Counter label="Score:" v-bind:value="score" />
       <Counter label="High Score:" v-bind:value="highScore" />
+      <Counter label="Accuracy:" v-bind:value="hitPercentage + '%'" />
       <Counter label="Timer" v-bind:value="timer" />
     </div>
     <Moles
       v-bind:moleData="moles"
       v-bind:gameActive="gameActive"
       v-on:whack="handleMoleWhack"
+      v-on:miss="handleMoleMiss"
     />
   </div>
 </template>
@@ -37,19 +39,26 @@ export default {
       score: 0,
       highScore: 0,
       timer: 20,
+      totalClickCount: 0,
       moles: [false, false, false, false],
       gameActive: false,
     };
+  },
+  computed: {
+    hitPercentage: function() {
+      return ((this.score / this.totalClickCount) * 100 || 0).toFixed(2);
+    },
   },
   methods: {
     resetState: function() {
       this.score = 0;
       this.timer = 20;
       this.moles = [false, false, false, false];
+      this.totalClickCount = 0;
     },
     startGame: function() {
-      if(this.gameActive == true){
-          return;
+      if (this.gameActive === true) {
+        return;
       }
       this.resetState();
       this.gameActive = true;
@@ -62,7 +71,7 @@ export default {
       this.stopMoles();
       this.updateHighScore();
     },
-    updateHighScore: function() {
+    updateHighScore() {
       this.highScore = Math.max(this.highScore, this.score);
     },
     startTimer: function() {
@@ -106,6 +115,10 @@ export default {
     handleMoleWhack: function(moleId) {
       this.score = this.score + 1;
       this.deactivateMole(moleId);
+      this.totalClickCount++;
+    },
+    handleMoleMiss: function() {
+      this.totalClickCount++;
     },
   },
 };
